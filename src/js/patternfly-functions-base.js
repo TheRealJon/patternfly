@@ -3,5 +3,6 @@
   'use strict';
   if (patternfly !== undefined) {
     $.pfBreakpoints = patternfly.pfBreakpoints;
+    
   }
 }(jQuery));
