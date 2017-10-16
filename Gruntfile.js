@@ -289,7 +289,8 @@ module.exports = function (grunt) {
           excludes: ['variables', 'default'],
           replacements: [
             {
-              // Matches on less variables, excludes css reserved words
+              // Customize variable conversion to include newer css reserved words.
+              // Matches on less variables, excludes css reserved words.
               pattern: /(?!@debug|@import|@media|@keyframes|@font-face|@include|@extend|@mixin|@supports|@-\w)@/gi,
               replacement: '$',
               order: 0
@@ -315,23 +316,20 @@ module.exports = function (grunt) {
             },
             {
               // Namespaced mixins are detected as includes by default conversion
-              // process. Change them back to mixins..
+              // process. Remove namespacing by concatenating namespace and mixin name.
               // #gradient {
               //    @include striped(){...}
               // }
               //
               // becomes
               //
-              // #gradient {
-              //    @mixin striped(){...}
-              // }
-              pattern: /^#[\w\-]+\s*{\s*@include\s*[\w\-]*\(.*\)\s*{[\s\S]*?\s*}\s*}/mgi,
-              replacement: function(match){
-                return match.replace(/@include/gi, '@mixin');
-              },
+              // @mixin gradient-striped(){...}
+              pattern: /^#([\w\-]+)\s*{\s*@include\s*([\w\-]*)\((.*)\)\s*{([\s\S]*?)}\s*}/mgi,
+              replacement: '@mixin $1-$2($3){$4}',
               order: 24
             },
             {
+              // Remove "!default" flag from mixin declarations
               pattern: /@mixin.*!default.*/gi,
               replacement: function(match){
                 return match.replace(/\s*!default\s*/gi, '');
@@ -339,7 +337,7 @@ module.exports = function (grunt) {
               order: 25
             },
             {
-              // Matches mixins and replaces semi colons with commas
+              // Replace semi-colons with commas in mixins and includes
               pattern: /(@mixin |@include )([\w\-]*)\s*(\(.*\))(\s*[{;]?)/gi,
               replacement: function(match, p1, p2, p3, p4){
                 return p1+p2+p3.replace(/;/g, ',')+p4;
@@ -347,7 +345,8 @@ module.exports = function (grunt) {
               order: 26
             },
             {
-              pattern: /([\w\-]*: [\w\-]*)\((.*)\s*!important(.*)\)/gi,
+              // Fix bug in grunt-less-to-sass that puts "!important" inside mixin parens.
+              pattern: /[\w\-]*: [\w\-]*\(.*\s*!important.*\)/gi,
               replacement: function(match){
                 return match.replace(/\s*!important\s*/g, '') + ' !important';
               },
@@ -408,6 +407,10 @@ module.exports = function (grunt) {
         files: ['src/less/*.less'],
         tasks: ['less']
       },
+      sass: {
+        files: ['src/less-to-sass/*.scss', 'src/sass/*.scss'],
+        tasks: ['sass']
+      },
       css: {
         files: ['dist/css/patternfly*.css', 'dist/css/!*.min.css'],
         tasks: ['cssmin','csscount']
@@ -421,7 +424,7 @@ module.exports = function (grunt) {
       },
       options: {
         livereload: true
-      }
+      },
     },
     karma: {
       unit: {
@@ -491,6 +494,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean',
     'concat',
+    'lessToSass',
     'copy',
     'pages',
     'sass',

@@ -1,15 +1,14 @@
 /* PatternFly additions to Bootstrap */
 
+// Variable overrides
+@import 'variables';
+
 // Bootstrap variables and mixins
 @import 'bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import 'bootstrap-sass/assets/stylesheets/bootstrap/mixins';
 
 // Font Awesome variables
 @import 'font-awesome/scss/variables';
-
-// Variable overrides
-@import 'variables';
-
 
 // Bootstrap-Combobox
 @import 'dependencies/patternfly-bootstrap-combobox/combobox';
