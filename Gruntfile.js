@@ -1,4 +1,5 @@
 /*global module,require*/
+/* eslint-disable */
 var pageBuilder = require('./tests/pages/_script/page-builder'),
   open = require('open');
 
@@ -79,32 +80,101 @@ module.exports = function (grunt) {
       main: {
         files: [
           // copy Bootstrap font files
-          {expand: true, cwd: 'node_modules/bootstrap/dist/fonts/', src: ['*'], dest: 'dist/fonts/'},
+          {
+            expand: true,
+            cwd: 'node_modules/bootstrap/dist/fonts/',
+            src: ['*'],
+            dest: 'dist/fonts/'
+          },
           // copy Font Awesome font files
-          {expand: true, cwd: 'node_modules/font-awesome/fonts/', src: ['*'], dest: 'dist/fonts/'},
+          {
+            expand: true,
+            cwd: 'node_modules/font-awesome/fonts/',
+            src: ['*'],
+            dest: 'dist/fonts/'},
           // copy Patternfly less files
-          {expand: true, cwd: 'src/less/', src: ['*'], dest: 'dist/less/'},
+          {
+            expand: true,
+            cwd: 'src/less/',
+            src: ['*'],
+            dest: 'dist/less/'},
           // copy Patternfly font files
-          {expand: true, cwd: 'src/fonts/', src: ['*'], dest: 'dist/fonts/'},
+          {
+            expand: true,
+            cwd: 'src/fonts/',
+            src: ['*'],
+            dest: 'dist/fonts/'},
           //copy images
-          {expand: true, cwd: 'src/img/', src: ['**'], dest: 'dist/img/'},
+          {
+            expand: true,
+            cwd: 'src/img/',
+            src: ['**'],
+            dest: 'dist/img/'},
           // Dependencies
           // copy Bootstrap less files
-          {expand: true, cwd: 'node_modules/bootstrap/less/', src: ['**'], dest: 'dist/less/dependencies/bootstrap/'},
+          {
+            expand: true,
+            cwd: 'node_modules/bootstrap/less/',
+            src: ['**'],
+            dest: 'dist/less/dependencies/bootstrap/'},
           // copy Font Awesome less files
-          {expand: true, cwd: 'node_modules/font-awesome/less/', src: ['**'], dest: 'dist/less/dependencies/font-awesome/'},
+          {
+            expand: true,
+            cwd: 'node_modules/font-awesome/less/',
+            src: ['**'],
+            dest: 'dist/less/dependencies/font-awesome/'
+          },
           // copy Bootstrap-Combobox less files
-          {expand: true, cwd: 'node_modules/patternfly-bootstrap-combobox/less/', src: ['**'], dest: 'dist/less/dependencies/bootstrap-combobox/'},
+          {
+            expand: true,
+            cwd: 'node_modules/patternfly-bootstrap-combobox/less/',
+            src: ['**'],
+            dest: 'dist/less/dependencies/bootstrap-combobox/'
+          },
           // copy Bootstrap-Datepicker less files
-          {expand: true, cwd: 'node_modules/bootstrap-datepicker/less/', src: ['**'], dest: 'dist/less/dependencies/bootstrap-datepicker/'},
+          {
+            expand: true,
+            cwd: 'node_modules/bootstrap-datepicker/less/',
+            src: ['**'],
+            dest: 'dist/less/dependencies/bootstrap-datepicker/'
+          },
           // copy Bootstrap-Select less files
-          {expand: true, cwd: 'node_modules/bootstrap-select/less/', src: ['**'], dest: 'dist/less/dependencies/bootstrap-select/'},
+          {
+            expand: true,
+            cwd: 'node_modules/bootstrap-select/less/',
+            src: ['**'],
+            dest: 'dist/less/dependencies/bootstrap-select/'
+          },
           // Bootstrap Switch less files must be manually copied because of edits made to source less for strict-math purposes
           // manually copy 'node_modules/bootstrap-switch/src/less/bootstrap3/' and make sure any math is wrapped with parentheses
           // copy Bootstrap Touchspin css file
-          {expand: true, cwd: 'node_modules/bootstrap-touchspin/dist/', src: ['jquery.bootstrap-touchspin.css'], dest: 'dist/less/dependencies/bootstrap-touchspin/'},
+          {
+            expand: true,
+            cwd: 'node_modules/bootstrap-touchspin/dist/',
+            src: ['jquery.bootstrap-touchspin.css'],
+            dest: 'dist/less/dependencies/bootstrap-touchspin/'
+          },
           // copy C3 css file
-          {expand: true, cwd: 'node_modules/c3/', src: ['c3.css'], dest: 'dist/less/dependencies/c3/'}
+          {
+            expand: true,
+            cwd: 'node_modules/c3/',
+            src: ['c3.css'],
+            dest: 'dist/less/dependencies/c3/'
+          },
+          // copy Bootstrap sass files
+          {
+            expand: true,
+            cwd: 'node_modules/bootstrap-sass/assets/stylesheets/',
+            src: ['**/*', '!_bootstrap-*.js'],
+            dest: 'dist/sass/dependencies/bootstrap'
+          },
+          // copy font-awesome sass files
+          {
+            expand: true,
+            cwd: 'node_modules/font-awesome/scss/',
+            src: ['*.scss'],
+            dest: 'dist/sass/dependencies/font-awesome'
+          }
         ]
       },
       js: {
@@ -180,6 +250,126 @@ module.exports = function (grunt) {
           outputSourceFiles: true,
           sourceMapFilename: 'dist/css/patternfly-additions.css.map',
           sourceMapURL: 'patternfly-additions.css.map'
+        }
+      }
+    },
+    lessToSass: {
+      convert_within_custom_replacements: {
+        files: [
+          {
+            expand: true,
+            cwd: 'src/less',
+            src: ['*.less','!patternfly*.less'],
+            ext: '.scss',
+            dest: 'src/less-to-sass'
+          },
+          {
+            expand: true,
+            cwd: 'node_modules/bootstrap-datepicker/less',
+            src: ['*.less'],
+            ext: '.scss',
+            dest: 'src/less-to-sass/dependencies/bootstrap-datepicker'
+          },
+          {
+            expand: true,
+            cwd: 'node_modules/bootstrap-switch/src/less/bootstrap3',
+            src: ['**/*.less'],
+            ext: '.scss',
+            dest: 'src/less-to-sass/dependencies/bootstrap-switch'
+          },
+          {
+            expand: true,
+            cwd: 'node_modules/patternfly-bootstrap-combobox/less',
+            src: ['*.less'],
+            ext: '.scss',
+            dest: 'src/less-to-sass/dependencies/patternfly-bootstrap-combobox'
+          },
+        ],
+        options: {
+          excludes: ['variables', 'default'],
+          replacements: [
+            {
+              // Matches on less variables, excludes css reserved words
+              pattern: /(?!@debug|@import|@media|@keyframes|@font-face|@include|@extend|@mixin|@supports|@-\w)@/gi,
+              replacement: '$',
+              order: 0
+            },
+            {
+              // Include mixins with no arguments
+              pattern: /(\s+)\.([\w\-]+)\(\)/gi,
+              replacement: '$1@include $2()',
+              order: 2
+            },
+            {
+              // Interpolates second ampersand where double ampersands are used
+              pattern: /\&\&/gi,
+              replacement: '&#{&}',
+              order: 22
+            },
+            {
+              // Interpolates ampersands that directly follow (are touching) a definition
+              // e.g. somedef& becomes somedef#{&}
+              pattern: /(\w+)\&/gi,
+              replacement: '$1.#{&}',
+              order: 23
+            },
+            {
+              // Namespaced mixins are detected as includes by default conversion
+              // process. Change them back to mixins..
+              // #gradient {
+              //    @include striped(){...}
+              // }
+              //
+              // becomes
+              //
+              // #gradient {
+              //    @mixin striped(){...}
+              // }
+              pattern: /^#[\w\-]+\s*{\s*@include\s*[\w\-]*\(.*\)\s*{[\s\S]*?\s*}\s*}/mgi,
+              replacement: function(match){
+                return match.replace(/@include/gi, '@mixin');
+              },
+              order: 24
+            },
+            {
+              pattern: /@mixin.*!default.*/gi,
+              replacement: function(match){
+                return match.replace(/\s*!default\s*/gi, '');
+              },
+              order: 25
+            },
+            {
+              // Matches mixins and replaces semi colons with commas
+              pattern: /(@mixin |@include )([\w\-]*)\s*(\(.*\))(\s*[{;]?)/gi,
+              replacement: function(match, p1, p2, p3, p4){
+                return p1+p2+p3.replace(/;/g, ',')+p4;
+              },
+              order: 26
+            },
+            {
+              pattern: /([\w\-]*: [\w\-]*)\((.*)\s*!important(.*)\)/gi,
+              replacement: function(match){
+                return match.replace(/\s*!important\s*/g, '') + ' !important';
+              },
+              order: 27
+            }
+          ]
+        }
+      }
+    },
+    sass: {                              // Task
+      dist: {                            // Target
+        options: {                       // Target options
+          style: 'expanded',
+          includePaths: [
+            'node_modules/',
+            'src/less-to-sass/',
+            'src/sass/'
+          ]
+        },
+        files: {                         // Dictionary of files
+          'dist/css/patternfly.css': 'src/sass/patternfly.scss',
+          'dist/css/patternfly-additions.css': 'src/sass/patternfly-additions.scss'
         }
       }
     },
@@ -290,9 +480,9 @@ module.exports = function (grunt) {
       grunt.log.writeln('Builidng test pages with liquid.js');
       done = this.async();
       pageBuilder.build()
-      .then(function () {
-        done();
-      });
+        .then(function () {
+          done();
+        });
     } else {
       grunt.log.writeln('Invalid taget:', target);
     }
@@ -303,7 +493,8 @@ module.exports = function (grunt) {
     'concat',
     'copy',
     'pages',
-    'less',
+    'sass',
+    // 'less',
     'cssmin',
     'postcss',
     'csscount',
@@ -312,6 +503,9 @@ module.exports = function (grunt) {
     'htmlhint',
     'stylelint'
   ]);
+
+  grunt.registerTask('generate', ['sass']);
+  grunt.registerTask('convert', ['lessToSass']);
 
   grunt.registerTask('serve', [
     'connect:server',

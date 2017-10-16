@@ -11,6 +11,7 @@
   "devDependencies": {
     "@commitlint/cli": "^3.2.0",
     "autoprefixer": "^6.4.0",
+    "bootstrap-sass": "^3.3.7",
     "commitizen": "^2.9.6",
     "commitlint-config-cz": "^0.5.0",
     "connect-livereload": "~0.5.4",
@@ -31,8 +32,10 @@
     "grunt-htmlhint": "^0.9.13",
     "grunt-jekyll": "^0.4.4",
     "grunt-karma": "^2.0.0",
+    "grunt-less-to-sass": "0.0.10",
     "grunt-postcss": "^0.8.0",
     "grunt-run": "^0.6.0",
+    "grunt-sass": "^2.0.0",
     "grunt-stylelint": "^0.7.0",
     "husky": "^0.14.3",
     "jasmine-core": "^2.4.1",
@@ -57,6 +60,7 @@
   },
   "optionalDependencies": {
     "bootstrap-datepicker": "~1.6.4",
+    "bootstrap-sass": "^3.3.7",
     "bootstrap-select": "^1.12.2",
     "bootstrap-switch": "~3.3.4",
     "bootstrap-touchspin": "~3.1.1",
