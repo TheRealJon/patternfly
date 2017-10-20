@@ -403,8 +403,6 @@ module.exports = function (grunt) {
             'node_modules/',
             'dist/sass/dependencies',
           ],
-          sourceMap: 'dist/css/patternfly.css.map',
-          sourceMapContents: true
         }
       },
       patternflyAdditions: {
@@ -416,8 +414,6 @@ module.exports = function (grunt) {
             'node_modules/',
             'dist/sass/dependencies',
           ],
-          sourceMap: 'dist/css/patternfly-additions.css.map',
-          sourceMapContents: true
         }
       }
     },
