@@ -12,6 +12,9 @@ module.exports = function (grunt) {
     src: ''
   };
 
+  // '--sass' command line argument exists?
+  var buildSass = grunt.option('sass');
+
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
@@ -391,17 +394,30 @@ module.exports = function (grunt) {
       }
     },
     sass: {
-      dist: {
+      patternfly: {
+        files: {
+          'dist/css/patternfly.css': 'dist/sass/patternfly.scss',
+        },
         options: {
-          style: 'expanded',
           includePaths: [
             'node_modules/',
             'dist/sass/dependencies',
-          ]
-        },
+          ],
+          sourceMap: 'dist/css/patternfly.css.map',
+          sourceMapContents: true
+        }
+      },
+      patternflyAdditions: {
         files: {
-          'dist/css/patternfly.css': 'dist/sass/patternfly.scss',
           'dist/css/patternfly-additions.css': 'dist/sass/patternfly-additions.scss'
+        },
+        options: {
+          includePaths: [
+            'node_modules/',
+            'dist/sass/dependencies',
+          ],
+          sourceMap: 'dist/css/patternfly-additions.css.map',
+          sourceMapContents: true
         }
       }
     },
@@ -441,7 +457,7 @@ module.exports = function (grunt) {
         tasks: ['less']
       },
       sass: {
-        files: ['src/less-to-sass/*.scss', 'src/sass/*.scss'],
+        files: ['dist/sass/*.scss', 'src/sass/*.scss'],
         tasks: ['sass']
       },
       css: {
@@ -524,14 +540,13 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('build', [
+  grunt.registerTask('build:less', [
     'clean',
     'concat',
     'lessToSass',
     'copy',
     'pages',
-    'sass',
-    // 'less',
+    'less',
     'cssmin',
     'postcss',
     'csscount',
@@ -541,8 +556,29 @@ module.exports = function (grunt) {
     'stylelint'
   ]);
 
-  grunt.registerTask('generate', ['sass']);
-  grunt.registerTask('convert', ['lessToSass']);
+  grunt.registerTask('build:sass', [
+    'clean',
+    'concat',
+    'lessToSass',
+    'copy',
+    'pages',
+    'sass',
+    'cssmin',
+    'postcss',
+    'csscount',
+    'eslint',
+    'uglify',
+    'htmlhint',
+    'stylelint'
+  ]);
+
+  grunt.registerTask('build', function(){
+    if(buildSass){
+      grunt.task.run('build:sass');
+    } else {
+      grunt.task.run('build:less');
+    }
+  });
 
   grunt.registerTask('serve', [
     'connect:server',
