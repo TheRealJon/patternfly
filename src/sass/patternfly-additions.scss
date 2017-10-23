@@ -1,8 +1,7 @@
 /* PatternFly additions to Bootstrap */
 
 // Patternfly variables and bootstrap overrides
-@import 'variables';
-
+@import 'partials/variables';
 // Bootstrap variables and mixins
 @import 'bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import 'bootstrap-sass/assets/stylesheets/bootstrap/mixins';
@@ -23,42 +22,42 @@
 // Bootstrap-DateTimePicker
 @import 'eonasdan-bootstrap-datetimepicker/src/sass/bootstrap-datetimepicker-build';
 
-@import 'mixins';
-@import 'about-modal';
-// @import 'application-launcher';
-@import 'blank-slate';
-@import 'bootstrap-combobox';
-// @import 'bootstrap-datepicker';
-@import 'bootstrap-select';
-@import 'bootstrap-switch';
-@import 'bootstrap-touchspin';
-@import 'bootstrap-treeview';
-@import 'cards';
-@import 'card-view';
-@import 'charts';
-@import 'close';
-@import 'datatables';
-@import 'footer';
-@import 'icons';
-@import 'infotip';
-@import 'layouts';
-@import 'links';
-@import 'list-pf';
-@import 'list-view';
-@import 'list-view-dnd';
-@import 'login';
-@import 'navbar';
-@import 'navbar-alt';
-@import 'navbar-vertical';
-@import 'nav-vertical-alt';
-@import 'notifications-drawer';
-@import 'search';
-@import 'sidebar';
-@import 'spinner';
-@import 'syntax-highlighting';
-@import 'table-view';
-@import 'time-picker';
-@import 'toast';
-@import 'toolbar';
-@import 'vertical-nav';
-@import 'wizard';
+@import 'partials/mixins';
+@import 'partials/about-modal';
+// @import 'partials/application-launcher';
+@import 'partials/blank-slate';
+@import 'partials/bootstrap-combobox';
+// @import 'partials/bootstrap-datepicker';
+@import 'partials/bootstrap-select';
+@import 'partials/bootstrap-switch';
+@import 'partials/bootstrap-touchspin';
+@import 'partials/bootstrap-treeview';
+@import 'partials/cards';
+@import 'partials/card-view';
+@import 'partials/charts';
+@import 'partials/close';
+@import 'partials/datatables';
+@import 'partials/footer';
+@import 'partials/icons';
+@import 'partials/infotip';
+@import 'partials/layouts';
+@import 'partials/links';
+@import 'partials/list-pf';
+@import 'partials/list-view';
+@import 'partials/list-view-dnd';
+@import 'partials/login';
+@import 'partials/navbar';
+@import 'partials/navbar-alt';
+@import 'partials/navbar-vertical';
+@import 'partials/nav-vertical-alt';
+@import 'partials/notifications-drawer';
+@import 'partials/search';
+@import 'partials/sidebar';
+@import 'partials/spinner';
+@import 'partials/syntax-highlighting';
+@import 'partials/table-view';
+@import 'partials/time-picker';
+@import 'partials/toast';
+@import 'partials/toolbar';
+@import 'partials/vertical-nav';
+@import 'partials/wizard';

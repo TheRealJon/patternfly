@@ -299,7 +299,10 @@ module.exports = function (grunt) {
             cwd: 'src/less',
             src: ['*.less','!patternfly*.less'],
             ext: '.scss',
-            dest: 'dist/sass'
+            dest: 'dist/sass/partials/',
+            rename: function(dest, src) {
+              return dest + '_' + src.replace('.less', '.scss');
+            }
           },
           {
             expand: true,
@@ -539,7 +542,6 @@ module.exports = function (grunt) {
   grunt.registerTask('build:less', [
     'clean',
     'concat',
-    'lessToSass',
     'copy',
     'pages',
     'less',
