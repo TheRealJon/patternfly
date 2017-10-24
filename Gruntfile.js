@@ -164,6 +164,10 @@ module.exports = function (grunt) {
             src: ['c3.css'],
             dest: 'dist/less/dependencies/c3/'
           },
+        ]
+      },
+      sass: {
+        files: [
           // copy Bootstrap sass files
           {
             expand: true,
@@ -206,13 +210,21 @@ module.exports = function (grunt) {
             src: '*.css',
             dest: 'dist/sass/dependencies/bootstrap-touchspin'
           },
-          // copy core patternfly sass files
+          // copy converted sass files, always do this before copying static files
+          // so that converted files will be overwritten by static files
           {
             expand: true,
-            cwd: 'src/sass/',
+            cwd: 'src/sass/converted',
             src: '*.scss',
+            dest: 'dist/sass/partials'
+          },
+          // copy static sass files
+          {
+            expand: true,
+            cwd: 'src/sass/static',
+            src: '**/*.scss',
             dest: 'dist/sass/'
-          }
+          },
         ]
       },
       js: {
@@ -299,7 +311,7 @@ module.exports = function (grunt) {
             cwd: 'src/less',
             src: ['*.less','!patternfly*.less'],
             ext: '.scss',
-            dest: 'dist/sass/partials/',
+            dest: 'src/sass/converted/',
             rename: function(dest, src) {
               return dest + '_' + src.replace('.less', '.scss');
             }
@@ -456,8 +468,8 @@ module.exports = function (grunt) {
         tasks: ['less']
       },
       sass: {
-        files: ['dist/sass/*.scss', 'src/sass/*.scss'],
-        tasks: ['sass']
+        files: ['src/sass/**/*.scss'],
+        tasks: ['copy:sass','sass']
       },
       css: {
         files: ['dist/css/patternfly*.css', 'dist/css/!*.min.css'],
