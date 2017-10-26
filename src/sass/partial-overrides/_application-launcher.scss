@@ -7,7 +7,7 @@
   overflow: visible;
 
   .applauncher-pf-title {
-    @include screen-reader-only;
+    @include sr-only-pf();
   }
 
   .dropdown-toggle {
