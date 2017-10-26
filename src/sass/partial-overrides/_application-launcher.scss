@@ -1,13 +1,13 @@
 //
 // Application Launcher
 // --------------------------------------------------
-.applauncher-pf {
 
+@mixin applauncher-pf(){
   display: inline-block;
   overflow: visible;
 
   .applauncher-pf-title {
-    @extend .sr-only;
+    @include screen-reader-only;
   }
 
   .dropdown-toggle {
@@ -96,7 +96,11 @@
     }
   }
 
-}//.applauncher-pf
+}//@mixin applauncher-pf
+
+.applauncher-pf{
+  @include applauncher-pf;
+}
 
 .navbar-utility .applauncher-pf {
     .dropdown-menu {
@@ -187,7 +191,7 @@
 
         @media (min-width: $screen-sm-min) {
           //Apply mixin
-          @extend .applauncher-pf;
+          @include applauncher-pf();
         }
     }
 }//.navbar-pf .navbar-pf-alt ovrerides

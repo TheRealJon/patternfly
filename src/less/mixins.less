@@ -81,6 +81,35 @@
   &::-webkit-input-placeholder  { color: @color; font-style: italic; } // Safari and Chrome
 }
 
+// SASS CONVERSION FIX.
+// Allows inclusion of sr-only rules in nested media queries (@extends .sr-only
+// will not work).
+.sr-only-pf() {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+// SASS CONVERSION FIX.
+// Fixes bootstrap-sass issue 1139 "form-control-focus mixin error"
+// https://github.com/twbs/bootstrap-sass/issues/1139
+// This is the *exact* same mixin that is defined in the bootstrap less.
+// Redefining it here allows our converted _mixins.scss file to override the
+// bootstrap-sass mixin which is broken.
+.form-control-focus(@color: @input-border-focus) {
+  @color-rgba: rgba(red(@color), green(@color), blue(@color), .6);
+  &:focus {
+    border-color: @color;
+    outline: 0;
+    .box-shadow(~"inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @{color-rgba}");
+  }
+}
+
 // PatternFly-specific
 // -------------------
 
@@ -104,4 +133,3 @@
   white-space: nowrap;
   word-wrap: normal;
 }
-

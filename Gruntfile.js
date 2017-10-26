@@ -414,6 +414,7 @@ module.exports = function (grunt) {
           'dist/css/patternfly.css': 'dist/sass/patternfly.scss',
         },
         options: {
+          outputStyle: 'expanded',
           includePaths: [
             'node_modules/',
             'dist/sass/dependencies',
@@ -425,6 +426,7 @@ module.exports = function (grunt) {
           'dist/css/patternfly-additions.css': 'dist/sass/patternfly-additions.scss'
         },
         options: {
+          outputStyle: 'expanded',
           includePaths: [
             'node_modules/',
             'dist/sass/dependencies',

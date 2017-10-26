@@ -5,6 +5,7 @@
 // Bootstrap variables and mixins
 @import 'bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import 'bootstrap-sass/assets/stylesheets/bootstrap/mixins';
+@import 'bootstrap-sass/assets/stylesheets/bootstrap/scaffolding';
 // Font Awesome variables
 @import 'font-awesome/scss/variables';
 // Bootstrap-Combobox
@@ -27,7 +28,7 @@
 @import 'partials/application-launcher';
 @import 'partials/blank-slate';
 @import 'partials/bootstrap-combobox';
-// @import 'partials/bootstrap-datepicker';
+@import 'partials/bootstrap-datepicker';
 @import 'partials/bootstrap-select';
 @import 'partials/bootstrap-switch';
 @import 'partials/bootstrap-touchspin';
