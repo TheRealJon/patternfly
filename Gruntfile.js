@@ -210,21 +210,20 @@ module.exports = function (grunt) {
             src: '*.css',
             dest: 'dist/sass/dependencies/bootstrap-touchspin'
           },
-          // copy converted sass files, always do this before copying static files
-          // so that converted files will be overwritten by static files
-          {
-            expand: true,
-            cwd: 'src/sass/converted',
-            src: '*.scss',
-            dest: 'dist/sass/partials'
-          },
           // copy static sass files
           {
             expand: true,
-            cwd: 'src/sass/static',
-            src: '**/*.scss',
+            cwd: 'src/sass',
+            src: '*.scss',
             dest: 'dist/sass/'
           },
+          {
+            // copy static sass partials that should overwrite converted sass
+            expand: true,
+            cwd: 'src/sass/partial-overrides',
+            src: '*.scss',
+            dest: 'dist/sass/partials'
+          }
         ]
       },
       js: {
@@ -310,8 +309,7 @@ module.exports = function (grunt) {
             expand: true,
             cwd: 'src/less',
             src: ['*.less','!patternfly*.less'],
-            ext: '.scss',
-            dest: 'src/sass/converted/',
+            dest: 'dist/sass/partials/',
             rename: function(dest, src) {
               return dest + '_' + src.replace('.less', '.scss');
             }
@@ -403,6 +401,10 @@ module.exports = function (grunt) {
                 return match.replace(/\s*!important\s*/g, '') + ' !important';
               },
               order: 27
+            },
+            {
+              pattern: /\&:extend\((.*)\)/gi,
+              replacement: '@extend $1'
             }
           ]
         }
@@ -470,7 +472,7 @@ module.exports = function (grunt) {
         tasks: ['less']
       },
       sass: {
-        files: ['src/sass/**/*.scss'],
+        files: ['dist/sass/**/*.scss', 'src/sass/**/*.scss'],
         tasks: ['copy:sass','sass']
       },
       css: {
