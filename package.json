@@ -34,7 +34,7 @@
     "grunt-htmlhint": "^0.9.13",
     "grunt-jekyll": "^0.4.4",
     "grunt-karma": "^2.0.0",
-    "grunt-less-to-sass": "0.0.10",
+    "grunt-lassie": "0.0.1",
     "grunt-postcss": "^0.8.0",
     "grunt-run": "^0.6.0",
     "grunt-sass": "^2.0.0",
