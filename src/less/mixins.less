@@ -7,45 +7,9 @@
 // -------------------
 
 // Button variants
-.button-variant(@color; @background; @background-image-start; @background-image-stop; @border) {
-  background-color: @background;
+.button-gradient(@color; @background; @background-image-start; @background-image-stop; @border) {
+  .button-variant(@color; @background; @border);
   #gradient > .vertical(@background-image-start, @background-image-stop);
-  border-color: @border;
-  color: @color;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &.active,
-  .open .dropdown-toggle& {
-    background-color: @background;
-    background-image: none;
-    border-color: @border;
-    color: @color;
-  }
-  &:active,
-  &.active,
-  .open .dropdown-toggle& {
-    background-image: none;
-    &:hover,
-    &:focus,
-    &.focus {
-      background-color: darken(@background, 5%);
-          border-color: darken(@border, 7%);
-    }
-  }
-  &.disabled,
-  &[disabled],
-  fieldset[disabled] & {
-    &,
-    &:hover,
-    &:focus,
-    &:active,
-    &.active {
-      background-color: @background;
-      border-color: @border;
-    }
-  }
 }
 
 // Form control outline
