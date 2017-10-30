@@ -218,7 +218,7 @@ module.exports = function (grunt) {
             dest: 'dist/sass/'
           },
           {
-            // copy static sass partials that should overwrite converted sass
+            // copy static sass partials to overwrite equivalent converted sass files
             expand: true,
             cwd: 'src/sass/partial-overrides',
             src: '*.scss',

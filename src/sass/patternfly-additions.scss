@@ -1,15 +1,17 @@
 /* PatternFly additions to Bootstrap */
 
+// patternfly variables
+@import 'partials/variables';
+
 // Bootstrap variables and mixins
 @import 'bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import 'bootstrap-sass/assets/stylesheets/bootstrap/mixins';
 
-// patternfly variables
-@import 'partials/variables';
+// Patternfly mixins
+@import 'partials/mixins';
 
 // Font Awesome variables
 @import 'font-awesome/scss/variables';
-
 
 // Bootstrap-Combobox
 @import 'bootstrap-combobox/combobox';
@@ -26,7 +28,6 @@
 // Bootstrap-DateTimePicker
 @import 'eonasdan-bootstrap-datetimepicker/src/sass/bootstrap-datetimepicker-build';
 
-@import 'partials/mixins';
 @import 'partials/about-modal';
 @import 'partials/application-launcher';
 @import 'partials/blank-slate';
