@@ -404,7 +404,8 @@ module.exports = function (grunt) {
             },
             {
               pattern: /\&:extend\((.*)\)/gi,
-              replacement: '@extend $1'
+              replacement: '@extend $1',
+              order: 28
             }
           ]
         }
