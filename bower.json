@@ -38,6 +38,6 @@
     "matchHeight": "~0.7.2",
     "moment": "~2.18.1",
     "patternfly-bootstrap-combobox": "~1.1.7",
-    "patternfly-bootstrap-treeiew": "~2.1.0"
+    "patternfly-bootstrap-treeview": "~2.1.0"
   }
 }
