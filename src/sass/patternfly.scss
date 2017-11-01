@@ -7,8 +7,8 @@
 @import "bootstrap-sass/assets/stylesheets/bootstrap/variables";
 @import "bootstrap-sass/assets/stylesheets/bootstrap/mixins";
 
-// Patternfly mixins
-@import 'partials/mixins';
+// Bootstrap mixin overrides
+@import 'partials/bootstrap-mixin-overrides';
 
 // OpenSans
 @import 'partials/fonts';
@@ -63,6 +63,7 @@
 // Font Awesome
 @import 'font-awesome/scss/font-awesome';
 
+@import 'partials/mixins';
 @import "partials/alerts";
 @import "partials/badges";
 @import "partials/breadcrumbs";

@@ -8,7 +8,7 @@
 @import 'bootstrap-sass/assets/stylesheets/bootstrap/mixins';
 
 // Patternfly mixins
-@import 'partials/mixins';
+@import 'partials/bootstrap-mixin-overrides';
 
 // Font Awesome variables
 @import 'font-awesome/scss/variables';
@@ -28,6 +28,7 @@
 // Bootstrap-DateTimePicker
 @import 'eonasdan-bootstrap-datetimepicker/src/sass/bootstrap-datetimepicker-build';
 
+@import 'partials/mixins';
 @import 'partials/about-modal';
 @import 'partials/application-launcher';
 @import 'partials/blank-slate';
