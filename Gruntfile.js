@@ -48,7 +48,8 @@ module.exports = function (grunt) {
       }
     },
     clean: {
-      build: '<%= config.dist %>'
+      build: '<%= config.dist %>',
+      sass: 'src/sass/converted'
     },
     concat: {
       js: {
@@ -210,19 +211,19 @@ module.exports = function (grunt) {
             src: '*.css',
             dest: 'dist/sass/dependencies/bootstrap-touchspin'
           },
-          // copy static sass files
+          // copy converted sass files
           {
             expand: true,
-            cwd: 'src/sass',
-            src: '*.scss',
+            cwd: 'src/sass/converted',
+            src: '**/*.scss',
             dest: 'dist/sass/'
           },
           {
             // copy static sass partials to overwrite equivalent converted sass files
             expand: true,
-            cwd: 'src/sass/partial-overrides',
-            src: '*.scss',
-            dest: 'dist/sass/partials'
+            cwd: 'src/sass/static',
+            src: '**/*.scss',
+            dest: 'dist/sass/'
           }
         ]
       },
@@ -308,8 +309,8 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: 'src/less',
-            src: ['*.less','!patternfly*.less'],
-            dest: 'dist/sass/partials/',
+            src: ['*.less','!patternfly*.less', '!application-launcher.less'],
+            dest: 'src/sass/converted/partials/',
             rename: function(dest, src) {
               return dest + '_' + src.replace('.less', '.scss');
             }
